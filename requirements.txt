@@ -1,2 +1,3 @@
 aiogram
 fastapi
+tortoise-orm[asyncmy]
