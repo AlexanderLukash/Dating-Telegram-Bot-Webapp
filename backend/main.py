@@ -1,5 +1,8 @@
 from fastapi import FastAPI
 from typing import List
+
+from fastapi.responses import JSONResponse
+
 from db.models.user import User, User_Pydantic
 from tortoise.contrib.fastapi import register_tortoise
 
@@ -13,7 +16,8 @@ async def root():
 
 @app.get("/users", response_model=List[User_Pydantic])
 async def get_users():
-    return await User_Pydantic.from_queryset(User.all())
+    users = await User_Pydantic.from_queryset(User.all())
+    return JSONResponse(users, status_code=200)
 
 
 register_tortoise(

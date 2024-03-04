@@ -1,7 +1,7 @@
 from aiogram import Bot, Dispatcher
 
 from bot.misc import TgKeys
-from bot.handlers import user_commands
+from bot.handlers import user_commands, questionaire
 
 
 async def start_bot():
@@ -9,6 +9,7 @@ async def start_bot():
     dp = Dispatcher()
     dp.include_routers(
         user_commands.router,
+        questionaire.router
     )
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)

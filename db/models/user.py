@@ -9,6 +9,10 @@ class User(models.Model):
     username = fields.CharField(max_length=235)
     age = fields.IntField(min_value=13)
     gender = fields.IntField(min_value=1, max_value=2)
+    city = fields.CharField(max_length=100)
+    about = fields.TextField(max_length=225)
+    photo = fields.CharField(max_length=225)
+
 
     def __str__(self):
         return self.name
