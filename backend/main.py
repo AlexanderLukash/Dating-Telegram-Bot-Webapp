@@ -1,12 +1,19 @@
 from fastapi import FastAPI
 from typing import List
-
-from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 
 from db.models.user import User, User_Pydantic
 from tortoise.contrib.fastapi import register_tortoise
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/")
@@ -16,8 +23,12 @@ async def root():
 
 @app.get("/users", response_model=List[User_Pydantic])
 async def get_users():
-    users = await User_Pydantic.from_queryset(User.all())
-    return JSONResponse(users, status_code=200)
+    return await User_Pydantic.from_queryset(User.all())
+
+
+@app.get("/user/{user_id}", response_model=User_Pydantic)
+async def get_user(user_id: int):
+    return await User_Pydantic.from_queryset_single(User.get(id=user_id))
 
 
 register_tortoise(

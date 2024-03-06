@@ -6,7 +6,7 @@ web_app_markup = InlineKeyboardMarkup(
         [
             InlineKeyboardButton(
                 text='Дивитися анкети',
-                web_app=WebAppInfo(url="https://docs.aiogram.dev/en/latest/dispatcher/index.html")
+                web_app=WebAppInfo(url="https://acc8-194-213-120-6.ngrok-free.app/about")
             )
         ]
     ]

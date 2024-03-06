@@ -2,6 +2,8 @@ from aiogram import Router, F
 from aiogram.types import Message
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
+
+from bot.keyboards.inline import web_app_markup
 from bot.utils.states import UserForm
 from bot.keyboards.builders import user_name_keyboard
 from bot.keyboards.reply import remove_keyboard, gender_select_keyboard, about_skip_keyboard
@@ -51,7 +53,10 @@ async def user_city(message: Message, state: FSMContext):
 
     await state.update_data(gender=gender)
     await state.set_state(UserForm.city)
-    await message.answer(text="З якого ви міста?")
+    await message.answer(
+        text="З якого ви міста?",
+        reply_markup=remove_keyboard
+    )
 
 
 @router.message(UserForm.city)
@@ -75,16 +80,19 @@ async def user_about(message: Message, state: FSMContext):
         await state.update_data(about=message.text)
 
     await state.set_state(UserForm.photo)
-    await message.answer(text="Надішліть своє фото.")
+    await message.answer(
+        text="Надішліть своє фото.",
+        reply_markup=remove_keyboard
+    )
 
 
 @router.message(UserForm.photo, F.photo)
-async def user_photo(message: Message, state:FSMContext):
+async def user_photo(message: Message, state: FSMContext):
     photo_file_id = message.photo[-1].file_id
     data = await state.get_data()
     await state.clear()
 
-    fromatted_text = ("Ваша анкета: \n"
+    formatted_text = ("Ваша анкета: \n"
                       f"Ім'я: {data.get('name')}\n"
                       f"Вік: {data.get('age')}\n"
                       f"Місто: {data.get('city')}\n"
@@ -93,7 +101,8 @@ async def user_photo(message: Message, state:FSMContext):
 
     await message.answer_photo(
         photo=photo_file_id,
-        caption=fromatted_text
+        caption=formatted_text,
+        reply_markup=web_app_markup
     )
 
     await User.create(
@@ -109,5 +118,5 @@ async def user_photo(message: Message, state:FSMContext):
 
 
 @router.message(UserForm.photo, ~F.photo)
-async def user_photo_error(message: Message, state:FSMContext):
+async def user_photo_error(message: Message, state: FSMContext):
     await message.answer("Відправте фото!")

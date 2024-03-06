@@ -3,5 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="Python 3.12 (dating-telegram-bot-webapp)" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.11 (dating-telegram-bot-webapp)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12 (venv)" project-jdk-type="Python SDK" />
 </project>

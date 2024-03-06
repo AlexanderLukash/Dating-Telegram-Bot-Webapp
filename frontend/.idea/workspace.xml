@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f876ea67-aaa0-4c3f-ac59-f5ac4eb043b8" name="Changes" comment="" />
+    <list default="true" id="f876ea67-aaa0-4c3f-ac59-f5ac4eb043b8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../.idea/dating-telegram-bot-webapp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/dating-telegram-bot-webapp.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bot/handlers/questionaire.py" beforeDir="false" afterPath="$PROJECT_DIR$/../bot/handlers/questionaire.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bot/keyboards/inline.py" beforeDir="false" afterPath="$PROJECT_DIR$/../bot/keyboards/inline.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../db/models/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/../db/models/user.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,41 +25,42 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/dating-app" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2cfrJBr1EclXpXeIGAJfbZl20qE" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "<unknown>",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_interpreter_path": "node",
-    "nodejs_package_manager_path": "npm",
-    "npm.dev (1).executor": "Run",
-    "npm.dev.executor": "Run",
-    "ts.external.directory.path": "C:\\Users\\Sasha\\PycharmProjects\\dating-telegram-bot-webapp\\frontend\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.dev (1).executor&quot;: &quot;Run&quot;,
+    &quot;npm.dev.executor&quot;: &quot;Run&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Sasha\\PycharmProjects\\dating-telegram-bot-webapp\\frontend\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
         <entry key="com.intellij.reactbuddy.reactComponents" value="false" />
         <entry key="com.intellij.reactbuddy.reactInspector" value="false" />
+        <entry key="com.intellij.reactbuddy.storybook" value="false" />
       </map>
     </option>
   </component>
@@ -82,6 +90,9 @@
       <option name="presentableId" value="Default" />
       <updated>1708513400293</updated>
       <workItem from="1708513401692" duration="3872000" />
+      <workItem from="1709542885028" duration="1247000" />
+      <workItem from="1709574383885" duration="3628000" />
+      <workItem from="1709639776209" duration="2530000" />
     </task>
     <servers />
   </component>
