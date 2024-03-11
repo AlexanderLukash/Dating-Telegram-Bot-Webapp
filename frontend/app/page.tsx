@@ -1,51 +1,64 @@
-import { Link } from "@nextui-org/link";
-import { Snippet } from "@nextui-org/snippet";
-import { Code } from "@nextui-org/code"
-import { button as buttonStyles } from "@nextui-org/theme";
-import { siteConfig } from "@/config/site";
-import { title, subtitle } from "@/components/primitives";
-import { GithubIcon } from "@/components/icons";
+import {title} from "@/components/primitives";
+import React from "react";
+import {HeartIcon} from '@/components/HeartIcon';
+import {Card, CardHeader, CardBody, CardFooter, Button, Image} from "@nextui-org/react";
 
-export default function Home() {
-	return (
-		<section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-			<div className="inline-block max-w-lg text-center justify-center">
-				<h1 className={title()}>Make&nbsp;</h1>
-				<h1 className={title({ color: "violet" })}>beautiful&nbsp;</h1>
-				<br />
-				<h1 className={title()}>
-					websites regardless of your design experience.
-				</h1>
-				<h2 className={subtitle({ class: "mt-4" })}>
-					Beautiful, fast and modern React UI library.
-				</h2>
-			</div>
+async function getData() {
+    const res = await fetch('http://127.0.0.1:8000/users')
+    // The return value is *not* serialized
+    // You can return Date, Map, Set, etc.
 
-			<div className="flex gap-3">
-				<Link
-					isExternal
-					href={siteConfig.links.docs}
-					className={buttonStyles({ color: "primary", radius: "full", variant: "shadow" })}
-				>
-					Documentation
-				</Link>
-				<Link
-					isExternal
-					className={buttonStyles({ variant: "bordered", radius: "full" })}
-					href={siteConfig.links.github}
-				>
-					<GithubIcon size={20} />
-					GitHub
-				</Link>
-			</div>
+    if (!res.ok) {
+        // This will activate the closest `error.js` Error Boundary
+        throw new Error('Failed to fetch data')
+    }
 
-			<div className="mt-8">
-				<Snippet hideSymbol hideCopyButton variant="flat">
-					<span>
-						Get started by editing <Code color="primary">app/page.tsx</Code>
-					</span>
-				</Snippet>
-			</div>
-		</section>
-	);
+    return res.json()
+}
+
+export default async function AboutPage() {
+    const data = await getData()
+
+    return (
+        <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
+
+            <h1 className={title()}>Анкети для вас</h1>
+            <div>
+                <Card className="py-4">
+                    <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
+                        <div className="flex gap-5">
+                            <div className="flex flex-col gap-1 items-start justify-center">
+                                <h4 className="text-large font-semibold leading-none text-default-600">{data.name}, {data.age}</h4>
+                                <h4 className="text-small font-semibold leading-none text-default-600">{data.city}</h4>
+                            </div>
+                            <div className="flex flex-col gap-1 items-start justify-center">
+                                <h5 className="text-small tracking-tight text-default-400"></h5>
+                            </div>
+                            <div className="flex flex-col gap-1 items-start justify-center">
+
+                                <Button isIconOnly color="danger" variant="faded" aria-label="Like"
+                                        className="ml-20 -mr-2">
+                                    <HeartIcon filled={undefined} size={undefined} height={undefined} width={undefined}
+                                               label={undefined}/>
+                                </Button>
+                            </div>
+                        </div>
+                    </CardHeader>
+                    <CardBody className="overflow-visible py-2">
+                        <Image
+                            alt="Card background"
+                            className="object-cover rounded-xl"
+                            src="https://cdn.discordapp.com/attachments/1163358305385730121/1209834469050290218/image.png?ex=65e85d27&is=65d5e827&hm=f7f698cf1578024ce2fb132bf43a7ffc67353dbaf5f4e906e26b08c10c0a317a&"
+                            width={270}
+                        />
+                    </CardBody>
+                    <CardFooter className="gap-3 -mt-2 -mb-2 px-3 py-0 text-small text-default-400">
+                        <p>
+                            {data.about}
+                        </p>
+                    </CardFooter>
+                </Card>
+            </div>
+        </section>)
+        ;
 }

@@ -1,21 +1,31 @@
-from tortoise import models, fields
-from tortoise.contrib.pydantic import pydantic_model_creator, pydantic_queryset_creator
+from tortoise import fields
+from tortoise.models import Model
 
 
-class User(models.Model):
+class User(Model):
     id = fields.IntField(pk=True)
     telegram_id = fields.IntField(unique=True)
     name = fields.CharField(max_length=100)
     username = fields.CharField(max_length=235)
-    age = fields.IntField(min_value=13)
-    gender = fields.IntField(min_value=1, max_value=2)
+    age = fields.IntField()
+    gender = fields.CharField(max_length=100)
     city = fields.CharField(max_length=100)
     about = fields.TextField(max_length=225, null=True)
     photo = fields.CharField(max_length=225)
+    liked_users = fields.ManyToManyField(
+        "models.User",
+        related_name="liked_by",
+        through="Likes",
+    )
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
-User_Pydantic = pydantic_model_creator(User, name="User")
-UserIn_Pydantic = pydantic_model_creator(User, name="UserIn", exclude_readonly=True)
+class Likes(Model):
+    id = fields.IntField(pk=True)
+    from_user = fields.ForeignKeyField("models.User", related_name="likes_sent")
+    to_user = fields.ForeignKeyField("models.User", related_name="likes_received")
+
+    def __str__(self):
+        return f"{self.from_user.username} likes {self.to_user.username}"

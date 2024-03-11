@@ -1,9 +1,10 @@
 from fastapi import FastAPI
-from typing import List
 from fastapi.middleware.cors import CORSMiddleware
-
-from db.models.user import User, User_Pydantic
+from aiogram import Bot
+from bot.misc import TgKeys
+from db.models.user import User
 from tortoise.contrib.fastapi import register_tortoise
+from tortoise.queryset import QuerySet as Q
 
 app = FastAPI()
 
@@ -18,17 +19,42 @@ app.add_middleware(
 
 @app.get("/")
 async def root():
-    return await User.all()
+    return {"status": True, "data": "Connection success."}
 
 
-@app.get("/users", response_model=List[User_Pydantic])
+@app.get("/users")
 async def get_users():
-    return await User_Pydantic.from_queryset(User.all())
+    users = await User.all()
+    return {"status": True, "data": users}
 
 
-@app.get("/user/{user_id}", response_model=User_Pydantic)
-async def get_user(user_id: int):
-    return await User_Pydantic.from_queryset_single(User.get(id=user_id))
+@app.get("/user/{user_id}")
+async def get_user_data(user_id: int):
+    user = await User.filter(telegram_id=user_id).first()
+
+    if not user:
+        return {"status": True, "data": "User not found!"}
+    return {"status": True, "data": user}
+
+
+@app.get("/users/city/{user_city}")
+async def get_users_by_city(user_city: str):
+    users = await User.filter(city=user_city)
+    return {"status": True, "data": users}
+
+
+@app.get("/users/age/{user_age}")
+async def get_users_by_age(user_age: int):
+    users = await User.filter(age=user_age)
+    return {"status": True, "data": users}
+
+
+@app.get("/users/best_results/{user_city}/{user_age}")
+async def get_users_best_results(user_city: str, user_age: int):
+    min_age = user_age - 3
+    max_age = user_age + 3
+    users = await User.filter(city=user_city, age__gte=min_age, age__lte=max_age)
+    return {"status": True, "data": users}
 
 
 register_tortoise(
