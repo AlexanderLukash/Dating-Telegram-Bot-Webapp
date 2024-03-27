@@ -1,6 +1,6 @@
-from aiogram import Bot, Dispatcher
-from bot.misc import TgKeys
+from aiogram import Dispatcher, Bot
 from bot.handlers import user_commands, questionaire
+from bot.misc import TgKeys
 
 
 async def start_bot():

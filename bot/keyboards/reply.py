@@ -5,15 +5,15 @@ main_keyboard = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(
-                text="👨 Профіль"
+                text="👨 Profile"
             ),
             KeyboardButton(
-                text="❤️ Ваші лайки"
+                text="❤️ Your likes"
             )
         ],
         [
             KeyboardButton(
-                text="🤳 Дивитися анкети",
+                text="🤳 View questionnaires",
                 web_app=WebAppInfo(
                     url="https://docs.aiogram.dev/en/latest/dispatcher/index.html"
                 )
@@ -21,7 +21,7 @@ main_keyboard = ReplyKeyboardMarkup(
         ]
     ],
     resize_keyboard=True,
-    input_field_placeholder="👇 Натискай на кнопочки",
+    input_field_placeholder="👇 Press the buttons",
     selective=True
 )
 
@@ -29,15 +29,15 @@ gender_select_keyboard = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(
-                text="👨 Хлопець"
+                text="👨 Boy"
             ),
             KeyboardButton(
-                text="👧 Дівчина"
+                text="👧 Girl"
             )
         ]
     ],
     resize_keyboard=True,
-    input_field_placeholder="👇 Натискай на кнопочки",
+    input_field_placeholder="👇 Press the buttons",
     selective=True
 )
 
@@ -45,12 +45,12 @@ about_skip_keyboard = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(
-                text="🪪 Пропустити"
+                text="🪪 Skip"
             ),
         ]
     ],
     resize_keyboard=True,
-    input_field_placeholder="👇 Натискай на кнопочки",
+    input_field_placeholder="👇 Press the button",
     selective=True
 )
 

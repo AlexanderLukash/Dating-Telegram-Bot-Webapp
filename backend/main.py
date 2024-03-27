@@ -1,10 +1,11 @@
+import aiohttp
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import requests
 from aiogram import Bot
 from bot.misc import TgKeys
-from db.models.user import User
+from db.models.user import User, Likes
 from tortoise.contrib.fastapi import register_tortoise
-from tortoise.queryset import QuerySet as Q
 
 app = FastAPI()
 
@@ -55,6 +56,49 @@ async def get_users_best_results(user_city: str, user_age: int):
     max_age = user_age + 3
     users = await User.filter(city=user_city, age__gte=min_age, age__lte=max_age)
     return {"status": True, "data": users}
+
+
+@app.get("/get/likes/from/{user}")
+async def get_likes_from_user(user: int):
+    likes = await Likes.filter(from_user_id=user)
+    return {"status": True, "data": likes}
+
+
+@app.get("/get/likes/to/{user}")
+async def get_likes_to_user(user: int):
+    likes = await Likes.filter(to_user_id=user)
+    return {"status": True, "data": likes}
+
+
+async def send_message(chat_id, text):
+    async with aiohttp.ClientSession() as sess:
+        await sess.get(f"https://api.telegram.org/bot{TgKeys.TOKEN}/sendMessage",
+                       data={"chat_id": chat_id, "text": text, "parse_mode": "HTML"})
+
+
+@app.get("/add/like/{from_user}/{to_user}")
+async def add_like(from_user: int, to_user: int):
+    like = await Likes.filter(from_user_id=from_user, to_user_id=to_user).first()
+
+    if like:
+        await send_message(chat_id=to_user, text="💗 You were liked.")
+        return {"status": True, "data": "The like is already there."}
+    else:
+        await Likes.create(
+            to_user_id=to_user
+        )
+        return {"status": True, "data": "Like added success."}
+
+
+@app.get("/remove/like/{from_user}/{to_user}")
+async def remove_like(from_user: int, to_user: int):
+    like = await Likes.filter(from_user_id=from_user, to_user_id=to_user).first()
+
+    if like:
+        await like.delete()
+        return {"status": True, "data": "Like removed success."}
+    else:
+        return {"status": True, "data": "The like is not already there."}
 
 
 register_tortoise(

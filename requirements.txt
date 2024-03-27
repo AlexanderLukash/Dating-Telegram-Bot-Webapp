@@ -2,3 +2,4 @@ aiogram~=3.4.1
 fastapi~=0.109.2
 tortoise-orm[asyncmy]
 cloudinary~=1.39.0
+Faker~=24.1.0
