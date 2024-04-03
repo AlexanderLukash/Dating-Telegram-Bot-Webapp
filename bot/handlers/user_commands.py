@@ -1,11 +1,13 @@
 import random
-
+from aiogram import Bot, F
 from aiogram import Router
 from aiogram.types import Message
 from aiogram.filters import CommandStart, Command
-from bot.keyboards.inline import main_inline_kb
+from bot.keyboards.inline import plofile_inline_kb
 from bot.keyboards.reply import main_keyboard
-from db.models.user import User
+
+from bot.main import bot
+from db.models.user import User, Likes
 from faker import Faker
 
 router = Router()
@@ -23,6 +25,8 @@ async def start(message: Message):
 @router.message(Command("profile"))
 async def profile(message: Message):
     user = await User.filter(telegram_id=message.from_user.id).first()
+    user_be_like = await Likes.filter(to_user_id=message.from_user.id)
+    user_liked = await Likes.filter(from_user_id=message.from_user.id)
     formatted_text = ("<b>✨ Your survey:</b> \n\n"
                       f"<b>👋 Name:</b> {user.name} | @{user.username}\n"
                       f"<b>🎀 Age:</b> {user.age}\n"
@@ -32,12 +36,16 @@ async def profile(message: Message):
                       f"<i>{user.about}</i>")
     await message.answer_photo(photo=user.photo,
                                caption=formatted_text,
-                               reply_markup=main_inline_kb)
+                               reply_markup=await plofile_inline_kb(message.from_user.id, user_be_like, user_liked))
 
 
-@router.message(Command("test"))
-async def test(message: Message):
-    await message.answer("Test", reply_markup=main_inline_kb)
+async def send_message(chat_id: int, text: str) -> Message:
+    try:
+        message = await bot.send_message(chat_id, text)
+        return message
+    except Exception as e:
+        error_message = f"Failed to send message: {e}"
+        return {"error_message": error_message}
 
 
 @router.message(Command("create_users"))

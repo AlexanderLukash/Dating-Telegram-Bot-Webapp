@@ -25,4 +25,4 @@ class Likes(Model):
     time = fields.DatetimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.from_user} likes {self.to_user}"
+        return f"{self.from_user_id} likes {self.to_user_id}"

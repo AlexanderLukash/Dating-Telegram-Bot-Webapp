@@ -1,9 +1,6 @@
-import aiohttp
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import requests
-from aiogram import Bot
-from bot.misc import TgKeys
+from bot.handlers.user_commands import send_message
 from db.models.user import User, Likes
 from tortoise.contrib.fastapi import register_tortoise
 
@@ -50,8 +47,8 @@ async def get_users_by_age(user_age: int):
     return {"status": True, "data": users}
 
 
-@app.get("/users/best_results/{user_city}/{user_age}")
-async def get_users_best_results(user_city: str, user_age: int):
+@app.get("/users/best_results/{user_id}/{user_city}/{user_age}")
+async def get_users_best_results(user_id: int, user_city: str, user_age: int):
     min_age = user_age - 3
     max_age = user_age + 3
     users = await User.filter(city=user_city, age__gte=min_age, age__lte=max_age)
@@ -70,23 +67,18 @@ async def get_likes_to_user(user: int):
     return {"status": True, "data": likes}
 
 
-async def send_message(chat_id, text):
-    async with aiohttp.ClientSession() as sess:
-        await sess.get(f"https://api.telegram.org/bot{TgKeys.TOKEN}/sendMessage",
-                       data={"chat_id": chat_id, "text": text, "parse_mode": "HTML"})
-
-
 @app.get("/add/like/{from_user}/{to_user}")
 async def add_like(from_user: int, to_user: int):
     like = await Likes.filter(from_user_id=from_user, to_user_id=to_user).first()
 
     if like:
-        await send_message(chat_id=to_user, text="💗 You were liked.")
         return {"status": True, "data": "The like is already there."}
     else:
         await Likes.create(
+            from_user_id=from_user,
             to_user_id=to_user
         )
+        await send_message(to_user, text="<b>You were liked 💗</b>")
         return {"status": True, "data": "Like added success."}
 
 

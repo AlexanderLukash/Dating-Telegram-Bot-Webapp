@@ -6,7 +6,7 @@ import {Providers} from "./providers";
 import {Navbar} from "@/components/navbar";
 import {Link} from "@nextui-org/link";
 import clsx from "clsx";
-import Loading from "@/app/users/loading";
+import Loading from "@/app/users/[users]/loading";
 import React, {Suspense} from "react";
 
 

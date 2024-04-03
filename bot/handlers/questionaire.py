@@ -3,11 +3,11 @@ from aiogram.types import Message
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 
-from bot.keyboards.inline import main_inline_kb
+from bot.keyboards.inline import plofile_inline_kb
 from bot.utils.states import UserForm
 from bot.keyboards.builders import user_name_keyboard
 from bot.keyboards.reply import remove_keyboard, gender_select_keyboard, about_skip_keyboard
-from db.models.user import User
+from db.models.user import User, Likes
 import cloudinary
 import cloudinary.uploader
 
@@ -133,10 +133,13 @@ async def user_reg(message: Message, state: FSMContext, bot: Bot):
                       f"<b>✍️ About you:</b> \n"
                       f"<i>{data.get('about')}</i>")
 
+    user_be_like = await Likes.filter(to_user_id=message.from_user.id)
+    user_liked = await Likes.filter(from_user_id=message.from_user.id)
+
     await message.answer_photo(
         photo=photo_file_id,
         caption=formatted_text,
-        reply_markup=main_inline_kb
+        reply_markup=await plofile_inline_kb(message.from_user.id, user_be_like, user_liked)
     )
 
     file = await bot.get_file(photo_file_id)

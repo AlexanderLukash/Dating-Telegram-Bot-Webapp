@@ -6,14 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="f876ea67-aaa0-4c3f-ac59-f5ac4eb043b8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../backend/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bot/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../bot/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bot/config/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../bot/callbacks/likes_pagination.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../bot/handlers/questionaire.py" beforeDir="false" afterPath="$PROJECT_DIR$/../bot/handlers/questionaire.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../bot/handlers/user_commands.py" beforeDir="false" afterPath="$PROJECT_DIR$/../bot/handlers/user_commands.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../bot/keyboards/inline.py" beforeDir="false" afterPath="$PROJECT_DIR$/../bot/keyboards/inline.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../bot/keyboards/reply.py" beforeDir="false" afterPath="$PROJECT_DIR$/../bot/keyboards/reply.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../bot/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../bot/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../bot/utils/states.py" beforeDir="false" afterPath="$PROJECT_DIR$/../bot/utils/states.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bot/misc/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../config/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bot/misc/env.py" beforeDir="false" afterPath="$PROJECT_DIR$/../config/env.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../db/models/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/../db/models/user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../run.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +50,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Sasha/PycharmProjects/dating-telegram-bot-webapp/frontend/app&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Sasha/PycharmProjects/dating-telegram-bot-webapp/frontend/components/HeartIconFill.jsx&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -73,10 +75,12 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Sasha\PycharmProjects\dating-telegram-bot-webapp\frontend\components" />
       <recent name="C:\Users\Sasha\PycharmProjects\dating-telegram-bot-webapp\frontend\app" />
       <recent name="C:\Users\Sasha\PycharmProjects\dating-telegram-bot-webapp\frontend\app\users\[about]" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Sasha\PycharmProjects\dating-telegram-bot-webapp\frontend\app\users" />
       <recent name="C:\Users\Sasha\PycharmProjects\dating-telegram-bot-webapp\frontend\components" />
       <recent name="C:\Users\Sasha\PycharmProjects\dating-telegram-bot-webapp\frontend" />
     </key>
@@ -117,21 +121,16 @@
       <workItem from="1710143508330" duration="6940000" />
       <workItem from="1710528862486" duration="858000" />
       <workItem from="1711446566088" duration="2775000" />
+      <workItem from="1711524974009" duration="6326000" />
+      <workItem from="1711875340197" duration="3585000" />
+      <workItem from="1711887378456" duration="1397000" />
+      <workItem from="1711888827566" duration="1201000" />
+      <workItem from="1711903616753" duration="3974000" />
+      <workItem from="1711960071356" duration="1142000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/app/users/[about]/page.tsx</url>
-          <line>37</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
