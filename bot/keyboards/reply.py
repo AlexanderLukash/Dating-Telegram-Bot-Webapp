@@ -1,19 +1,19 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove
 from aiogram.types import WebAppInfo
 
 main_keyboard = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(
-                text="👨 Профіль"
+                text="👨 Profile"
             ),
             KeyboardButton(
-                text="❤️ Ваші лайки"
+                text="❤️ Your likes"
             )
         ],
         [
             KeyboardButton(
-                text="🤳 Дивитися анкети",
+                text="🤳 View questionnaires",
                 web_app=WebAppInfo(
                     url="https://docs.aiogram.dev/en/latest/dispatcher/index.html"
                 )
@@ -21,6 +21,37 @@ main_keyboard = ReplyKeyboardMarkup(
         ]
     ],
     resize_keyboard=True,
-    input_field_placeholder="👇 Натискай на кнопочки",
+    input_field_placeholder="👇 Press the buttons",
     selective=True
 )
+
+gender_select_keyboard = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(
+                text="👨 Boy"
+            ),
+            KeyboardButton(
+                text="👧 Girl"
+            )
+        ]
+    ],
+    resize_keyboard=True,
+    input_field_placeholder="👇 Press the buttons",
+    selective=True
+)
+
+about_skip_keyboard = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(
+                text="🪪 Skip"
+            ),
+        ]
+    ],
+    resize_keyboard=True,
+    input_field_placeholder="👇 Press the button",
+    selective=True
+)
+
+remove_keyboard = ReplyKeyboardRemove()
