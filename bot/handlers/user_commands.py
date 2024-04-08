@@ -7,7 +7,8 @@ from bot.keyboards.inline import plofile_inline_kb
 from bot.keyboards.reply import main_keyboard
 
 from bot.main import bot
-from db.models.user import User, Likes
+from db.models.user import User
+from db.models.likes import Likes
 from faker import Faker
 
 router = Router()

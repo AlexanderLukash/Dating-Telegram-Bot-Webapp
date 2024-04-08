@@ -4,7 +4,7 @@ import logging
 from aiogram import Dispatcher, Bot
 from tortoise import run_async
 
-from bot.handlers import user_commands, questionaire
+from bot.handlers import user_commands, form
 from bot.callbacks import likes_pagination
 from config.env import TgKeys
 from db.db_config import init
@@ -16,7 +16,7 @@ dp = Dispatcher()
 async def start_bot():
     dp.include_routers(
         user_commands.router,
-        questionaire.router,
+        form.router,
         likes_pagination.router
     )
     await bot.delete_webhook(drop_pending_updates=True)

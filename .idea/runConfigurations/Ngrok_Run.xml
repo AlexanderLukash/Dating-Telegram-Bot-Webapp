@@ -1,8 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Ngrok Run" type="ngrok-deploy" factoryName="Ngrok" editBeforeRun="true" focusToolWindowBeforeRun="true" singleton="false" server-name="backend">
-    <deployment type="Ngrok">
-      <settings />
-    </deployment>
-    <method v="2" />
-  </configuration>
-</component>
