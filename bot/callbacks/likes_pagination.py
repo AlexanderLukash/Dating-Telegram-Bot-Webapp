@@ -6,7 +6,8 @@ from contextlib import suppress
 from bot.keyboards.inline import paginator_photo, UserLikedByPagination, UsVideoPagination, paginator_videos, \
     PhotoMePagination, paginator_photo_me, TextsPagination, paginator_texts, plofile_inline_kb
 
-from db.models.user import Likes, User
+from db.models.user import User
+from db.models.likes import Likes
 
 router = Router()
 
@@ -41,19 +42,45 @@ async def pagination_user_liked_by_handler(call: CallbackQuery, callback_data: U
 
 @router.callback_query(F.data == "pag")
 async def photo_pag(callback: CallbackQuery) -> None:
-    user_be_like = await Likes.filter(to_user_id=callback.from_user.id)
+    user_be_like = await Likes.filter(to_user_id=callback.from_user.id).order_by("time")
     for like in user_be_like:
         user = await User.filter(telegram_id=like.from_user_id)
         if user:
-            users.append(user[0])  # Додаємо першого знайденого користувача
+            users.append(user[0])
 
-    await callback.message.edit_media(InputMediaVideo(media=users[0].photo,
-                                                      caption=f"Likes by @{users[0].username}"
-                                                              " <b>Натискай на кнопочки ️</b>‍💌👇"),
+    formatted_text = ("<b>✨ Your survey:</b> \n\n"
+                      f"<b>👋 Name:</b> {users[0].name} | @{users[0].username}\n"
+                      f"<b>🎀 Age:</b> {users[0].age}\n"
+                      f"<b>🌆 City:</b> {users[0].city}\n"
+                      f"<b>👫 Gender:</b> {users[0].gender}\n"
+                      f"<b>✍️ About you:</b> \n"
+                      f"<i>{users[0].about}</i>")
+
+    await callback.message.edit_media(InputMediaPhoto(media=users[0].photo,
+                                                      caption=formatted_text),
                                       reply_markup=paginator_photo())
 
 
 @router.callback_query(F.data == "profile_page")
+async def profile(callback: CallbackQuery):
+    user = await User.filter(telegram_id=callback.from_user.id).first()
+    user_be_like = await Likes.filter(to_user_id=callback.from_user.id)
+    user_liked = await Likes.filter(from_user_id=callback.from_user.id)
+    formatted_text = ("<b>✨ Your survey:</b> \n\n"
+                      f"<b>👋 Name:</b> {user.name} | @{user.username}\n"
+                      f"<b>🎀 Age:</b> {user.age}\n"
+                      f"<b>🌆 City:</b> {user.city}\n"
+                      f"<b>👫 Gender:</b> {user.gender}\n"
+                      f"<b>✍️ About you:</b> \n"
+                      f"<i>{user.about}</i>")
+    await callback.message.edit_media(InputMediaPhoto(media=user.photo,
+                                                      caption=formatted_text,
+                                                      ),
+                                      reply_markup=await plofile_inline_kb(callback.from_user.id, user_be_like,
+                                                                           user_liked))
+
+
+@router.callback_query(F.data == "like_user")
 async def profile(callback: CallbackQuery):
     user = await User.filter(telegram_id=callback.from_user.id).first()
     user_be_like = await Likes.filter(to_user_id=callback.from_user.id)

@@ -1,7 +1,8 @@
 from aiogram.filters.callback_data import CallbackData
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import InlineKeyboardButton
 from aiogram.types import WebAppInfo
-from aiogram.utils.keyboard import KeyboardBuilder, InlineKeyboardBuilder
+from aiogram.utils.keyboard import InlineKeyboardBuilder
+from config.env import FrontEnd_URL
 
 
 async def plofile_inline_kb(user_id, liked_by, liked):
@@ -12,11 +13,11 @@ async def plofile_inline_kb(user_id, liked_by, liked):
         )
     if liked:
         builder.row(
-            InlineKeyboardButton(text="Your likes 💓", url="https://c80e-194-213-120-6.ngrok-free.app/users"),
+            InlineKeyboardButton(text="Your likes 💓", url=f"{FrontEnd_URL}/users"),
         )
     builder.row(
         InlineKeyboardButton(text='💗 View questionnaires',
-                             web_app=WebAppInfo(url=f"https://c80e-194-213-120-6.ngrok-free.app/users/{user_id}"))
+                             web_app=WebAppInfo(url=f"{FrontEnd_URL}/users/{user_id}"))
     )
     return builder.as_markup()
 
@@ -47,6 +48,9 @@ def paginator_photo(page: int = 0):
         InlineKeyboardButton(text="⬅", callback_data=UserLikedByPagination(action="prev", page=page).pack()),
         InlineKeyboardButton(text="➡", callback_data=UserLikedByPagination(action="next", page=page).pack()),
         width=2
+    )
+    builder.row(
+        InlineKeyboardButton(text="Like 💓", callback_data="like_user")
     )
     builder.row(
         InlineKeyboardButton(text="Main menu ✨", callback_data="profile_page")
