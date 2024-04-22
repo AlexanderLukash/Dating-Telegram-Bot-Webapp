@@ -16,4 +16,5 @@ yarn-error.log
 npm-debug.log
 *.idea
 *.pyc
+*.__pycache__
 photos/*
