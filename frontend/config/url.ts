@@ -1,1 +1,4 @@
-const BackEnd_URL = "http://127.0.0.1:8000/"
+
+
+const BackEnd = process.env.BACKEND_URL;
+export const BackEnd_URL = BackEnd;

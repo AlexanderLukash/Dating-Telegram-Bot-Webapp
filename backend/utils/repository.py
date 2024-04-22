@@ -21,28 +21,60 @@ class TortoiseORMRepository(AbstractRepository):
 # Repository for handling User model operations
 class UsersORMRepository(TortoiseORMRepository):
     # Method to get one user by ID
-    async def get_one(self, data: int) -> Model:
+    async def get_one(self, data: int):
         res = await self.model.filter(telegram_id=data).first()
         return res
 
     # Method to find users by city
-    async def find_by_city(self, data: str) -> Model:
+    async def find_by_city(self, data: str):
         res = await self.model.filter(city=data)
         return res
 
     # Method to find users by age
-    async def find_by_age(self, data: int) -> Model:
+    async def find_by_age(self, data: int):
         res = await self.model.filter(age=data)
         return res
 
     # Method to find users based on criteria
-    async def find_best_result(self, data: list):
+    async def find_best_result(self, data: dict):
         res = await self.model.filter(
             city=data.get("city"),
             age__gte=data.get("age__gte"),
             age__lte=data.get("age__lte"),
             gender=data.get("gender")
-        )
+        ).exclude(telegram_id=data.get("telegram_id"))
+        return res
+
+    # Method to update users photo
+    async def photo_update(self, data: dict):
+        res = await self.model.filter(telegram_id=data.get('telegram_id')).first()
+
+        res.photo = data.get('photo_url')
+        await res.save()
+        return res
+
+    # Method to update users about info
+    async def about_update(self, data: dict):
+        res = await self.model.filter(telegram_id=data.get('telegram_id')).first()
+
+        res.about = data.get('about')
+        await res.save()
+        return res
+
+    # Method to update or create new users
+    async def create_update_user(self, data: dict):
+        res = await self.model.update_or_create(
+            telegram_id=data.get('telegram_id'),
+            defaults={
+                'username': data.get('username'),
+                'name': data.get('name'),
+                'age': data.get('age'),
+                'gender': data.get('gender'),
+                'looking_for': data.get('looking_for'),
+                'city': data.get('city'),
+                'about': data.get('about'),
+                'photo': data.get('photo')
+            })
         return res
 
 

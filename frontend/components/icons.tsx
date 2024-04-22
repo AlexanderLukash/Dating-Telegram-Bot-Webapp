@@ -2,11 +2,11 @@ import * as React from "react";
 import { IconSvgProps } from "@/types";
 
 export const Logo: React.FC<IconSvgProps> = ({
-	size = 36,
-	width,
-	height,
-	...props
-}) => (
+												 size = 36,
+												 width,
+												 height,
+												 ...props
+											 }) => (
 	<svg width={size || width} height={size || height} viewBox="0 0 83 67" fill="none" xmlns="http://www.w3.org/2000/svg">
 		<path
 			d="M66.8735 1.4289C56.5069 -4.37354 50.0526 8.72306 46.7865 18.6967H36.2126C32.9466 8.72306 26.4923 -4.37354 16.1257 1.4289C0.100098 10.3987 0.100098 64.2528 0.100098 64.2528C0.100098 64.2528 5.44197 64.3099 8.1129 56.0898C7.80658 60.4362 9.30331 63.9982 10.7838 66.7735C14.3547 65.3424 17.3099 60.806 20.1321 55.8828C20.4463 57.5646 21.3364 60.0498 22.0185 61.3281C25.7478 59.8336 29.5472 56.014 32.4176 50.7479H50.5818C53.452 56.014 57.2516 59.8336 60.9817 61.3281C61.6637 60.0498 62.5537 57.5646 62.8681 55.8828C65.6903 60.806 68.6455 65.3424 72.2164 66.7735C73.6969 63.9982 75.1936 60.4362 74.8873 56.0898C77.5582 64.3096 82.9001 64.2528 82.9001 64.2528C82.9001 64.2528 82.8991 10.3987 66.8735 1.4289Z"
@@ -25,11 +25,11 @@ export const Logo: React.FC<IconSvgProps> = ({
 );
 
 export const DiscordIcon: React.FC<IconSvgProps> = ({
-														size = 24,
-														width,
-														height,
-														...props
-													}) => {
+	size = 24,
+	width,
+	height,
+	...props
+}) => {
 	return (
 		<svg
 			height={size || height}
@@ -46,11 +46,11 @@ export const DiscordIcon: React.FC<IconSvgProps> = ({
 };
 
 export const TwitterIcon: React.FC<IconSvgProps> = ({
-														size = 24,
-														width,
-														height,
-														...props
-													}) => {
+	size = 24,
+	width,
+	height,
+	...props
+}) => {
 	return (
 		<svg
 			height={size || height}

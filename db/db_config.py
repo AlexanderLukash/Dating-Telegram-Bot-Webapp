@@ -1,4 +1,13 @@
+import environ
 from tortoise import Tortoise
+
+env = environ.Env()
+environ.Env.read_env('.env')
+
+db_url = (f'postgres://{env('POSTGRES_USER')}:{env('POSTGRES_PASSWORD')}@{env('POSTGRES_HOST')}:'
+          f'{env('POSTGRES_PORT')}/{env('POSTGRES_DB')}')
+
+print(db_url)
 
 
 async def init():
@@ -6,7 +15,7 @@ async def init():
     #  also specify the app name of "models"
     #  which contain models from "app.models"
     await Tortoise.init(
-        db_url='mysql://lukash:sasha2627@127.0.0.1:3306/dating_database',
+        db_url=db_url,
         modules={'models': ['db.models.user', 'db.models.likes']}
     )
     # Generate the schema

@@ -1,7 +1,15 @@
+import environ
+from aiogram import Bot
+
 from backend.repositories.users import UsersRepository
 from backend.utils.repository import LikesORMRepository
 
-from bot.handlers.user_commands import send_message
+from bot.handlers.user_commands import send_liked_message
+
+env = environ.Env()
+environ.Env.read_env('.env')
+
+bot = Bot(env('TOKEN'), parse_mode='HTML')
 
 
 class LikesService:
@@ -46,8 +54,7 @@ class LikesService:
             return False  # If the like already exists, return False
         else:
             like = await self.likes_repo.create_like(from_user, to_user)  # Create a new like
-            await send_message(to_user,
-                               text="<b>You were liked 💗</b>")  # Send a message to the user who received the like
+            await send_liked_message(chat_id=to_user)  # Send a message to the user who received the like
             return like  # Return the created like
 
     async def remove_like(self, from_user: int, to_user: int):

@@ -1,14 +1,14 @@
 import React from "react";
 
 export const HeartIconFill = ({
-                              fill = 'currentColor',
-                              filled,
-                              size,
-                              height,
-                              width,
-                              label,
-                              ...props
-                          }) => {
+                                  fill = 'currentColor',
+                                  filled,
+                                  size,
+                                  height,
+                                  width,
+                                  label,
+                                  ...props
+                              }) => {
     return (
         <svg
             width={size || width || 24}
@@ -28,4 +28,3 @@ export const HeartIconFill = ({
         </svg>
     );
 };
-

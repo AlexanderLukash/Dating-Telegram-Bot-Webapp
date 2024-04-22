@@ -1,70 +1,70 @@
-import random
-from aiogram import Bot, F
-from aiogram import Router
+from aiogram import Router, F
 from aiogram.types import Message
 from aiogram.filters import CommandStart, Command
-from bot.keyboards.inline import plofile_inline_kb
-from bot.keyboards.reply import main_keyboard
 
+# Importing inline keyboards from the bot
+from bot.keyboards.inline import profile_inline_kb, liked_by_keyboard
+
+# Importing necessary modules from the main bot and backend repositories
 from bot.main import bot
-from db.models.user import User
-from db.models.likes import Likes
-from faker import Faker
+from backend.repositories.users import UsersRepository
+from backend.repositories.likes import LikesRepository
 
+# Creating a router instance
 router = Router()
 
 
-@router.message(CommandStart())
-async def start(message: Message):
-    user = await User.filter(telegram_id=message.from_user.id).first()
-    if user:
-        await message.answer("🍷 Start dating 👇", reply_markup=main_keyboard)
-    else:
-        await message.answer("First execute the /form command", )
-
-
-@router.message(Command("profile"))
-async def profile(message: Message):
-    user = await User.filter(telegram_id=message.from_user.id).first()
-    user_be_like = await Likes.filter(to_user_id=message.from_user.id)
-    user_liked = await Likes.filter(from_user_id=message.from_user.id)
-    formatted_text = ("<b>✨ Your survey:</b> \n\n"
+# Function to format user data into a string for displaying in the profile
+async def format_user_data(user) -> str:
+    about_user = f"<b>✍️ About you:</b> \n<i>{user.about}</i>" if user.about is not None else ""
+    formatted_text = ("<b>✨ Your profile:</b> \n\n"
                       f"<b>👋 Name:</b> {user.name} | @{user.username}\n"
                       f"<b>🎀 Age:</b> {user.age}\n"
                       f"<b>🌆 City:</b> {user.city}\n"
                       f"<b>👫 Gender:</b> {user.gender}\n"
-                      f"<b>✍️ About you:</b> \n"
-                      f"<i>{user.about}</i>")
-    await message.answer_photo(photo=user.photo,
-                               caption=formatted_text,
-                               reply_markup=await plofile_inline_kb(message.from_user.id, user_be_like, user_liked))
+                      f"{about_user}")
+    return formatted_text
 
 
-async def send_message(chat_id: int, text: str) -> Message:
+# Handler for the /start command
+@router.message(CommandStart())
+async def start(message: Message):
+    user = await UsersRepository().get_one(message.from_user.id)
+
+    if user:
+        user_be_like = await LikesRepository().find_likes_to_user(message.from_user.id)
+        formatted_text = await format_user_data(user)
+        # Send a message with the user's profile details and an inline keyboard for actions
+        await message.answer_photo(photo=user.photo,
+                                   caption=formatted_text,
+                                   reply_markup=await profile_inline_kb(message.from_user.id, user_be_like))
+    else:
+        await message.answer("First execute the /form command")
+
+
+# Handler for the /profile command
+@router.message(Command("profile"))
+async def profile(message: Message):
+    user = await UsersRepository().get_one(message.from_user.id)
+
+    if user:
+        user_be_like = await LikesRepository().find_likes_to_user(message.from_user.id)
+        formatted_text = await format_user_data(user)
+        # Send a message with the user's profile details and an inline keyboard for actions
+        await message.answer_photo(photo=user.photo,
+                                   caption=formatted_text,
+                                   reply_markup=await profile_inline_kb(message.from_user.id, user_be_like))
+    else:
+        await message.answer("First execute the /form command")
+
+
+# Function to send a message notifying the user that they were liked
+async def send_liked_message(chat_id: int) -> Message:
     try:
-        message = await bot.send_message(chat_id, text)
+        message = await bot.send_message(chat_id,
+                                         text="<b>You were liked 💗</b>\nDo you want to see those who liked you?",
+                                         reply_markup=await liked_by_keyboard())
         return message
     except Exception as e:
         error_message = f"Failed to send message: {e}"
         return {"error_message": error_message}
-
-
-@router.message(Command("create_users"))
-async def create_users(message: Message):
-    fake = Faker()
-    try:
-        for _ in range(20):
-            await User.create(
-                telegram_id=random.randint(1000000, 9999999),
-                name=fake.name(),
-                username=fake.user_name(),
-                age=random.randint(13, 60),
-                gender=random.choice(['Boy', 'Girl']),
-                looking_for=random.choice(['Boy', 'Girl']),
-                city=fake.city(),
-                about=fake.text(max_nb_chars=225),
-                photo="https://dummyimage.com/732x967"
-            )
-        await message.answer(text="Users are created.")
-    except Exception as error:
-        await message.answer(text=f"Users not created, an error occurred: {error}.")

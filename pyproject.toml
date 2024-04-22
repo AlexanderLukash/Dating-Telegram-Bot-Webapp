@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "dating-telegram-bot-webapp"
+version = "0.1.0"
+description = ""
+authors = ["Lukash <89802614+AlexanderLukash@users.noreply.github.com>"]
+license = "MIT"
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+aiogram = "^3.4.1"
+fastapi = "^0.110.2"
+tortoise-orm = {extras = ["asyncpg"], version = "^0.20.0"}
+cloudinary = "^1.40.0"
+django-environ = "^0.11.2"
+uvicorn = "^0.29.0"
+
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,30 +1,30 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove
 from aiogram.types import WebAppInfo
 
-main_keyboard = ReplyKeyboardMarkup(
+# Creating a ReplyKeyboardMarkup for profile editing options with numbered buttons
+profile_edit_keyboard = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(
-                text="👨 Profile"
+                text="1"
             ),
             KeyboardButton(
-                text="❤️ Your likes"
-            )
-        ],
-        [
+                text="2"
+            ),
             KeyboardButton(
-                text="🤳 View questionnaires",
-                web_app=WebAppInfo(
-                    url="https://docs.aiogram.dev/en/latest/dispatcher/index.html"
-                )
+                text="3"
+            ),
+            KeyboardButton(
+                text="4"
             )
         ]
     ],
-    resize_keyboard=True,
-    input_field_placeholder="👇 Press the buttons",
-    selective=True
+    resize_keyboard=True,  # Allows the keyboard to resize dynamically
+    input_field_placeholder="👇 Press the buttons",  # Placeholder text displayed in the input field
+    selective=True  # Ensures the keyboard is shown only to the specific user who triggered it
 )
 
+# Creating a ReplyKeyboardMarkup for gender selection with emoji buttons
 gender_select_keyboard = ReplyKeyboardMarkup(
     keyboard=[
         [
@@ -36,11 +36,12 @@ gender_select_keyboard = ReplyKeyboardMarkup(
             )
         ]
     ],
-    resize_keyboard=True,
-    input_field_placeholder="👇 Press the buttons",
-    selective=True
+    resize_keyboard=True,  # Allows the keyboard to resize dynamically
+    input_field_placeholder="👇 Press the buttons",  # Placeholder text displayed in the input field
+    selective=True  # Ensures the keyboard is shown only to the specific user who triggered it
 )
 
+# Creating a ReplyKeyboardMarkup for skipping the "about" section with a single button
 about_skip_keyboard = ReplyKeyboardMarkup(
     keyboard=[
         [
@@ -49,9 +50,10 @@ about_skip_keyboard = ReplyKeyboardMarkup(
             ),
         ]
     ],
-    resize_keyboard=True,
-    input_field_placeholder="👇 Press the button",
-    selective=True
+    resize_keyboard=True,  # Allows the keyboard to resize dynamically
+    input_field_placeholder="👇 Press the button",  # Placeholder text displayed in the input field
+    selective=True  # Ensures the keyboard is shown only to the specific user who triggered it
 )
 
+# Creating a special keyboard to remove the current keyboard from the chat interface
 remove_keyboard = ReplyKeyboardRemove()
